@@ -54,5 +54,87 @@ object chapter4 {
         ORDER BY origin, delay DESC
         """).show(10)
 
+    df.select("distance", "origin", "destination")
+      .where("distance > 1000")
+      .orderBy(col("distance").desc) // Orden descendente correctamente especificado
+      .show(10)
+
+    df.select("date", "delay", "origin", "destination")
+      .where("delay > 120 AND origin = 'SFO' AND destination = 'ORD'")
+      .orderBy(col("delay").desc)
+      .show(10)
+
+
+    df.select(
+        col("delay"),
+        col("origin"),
+        col("destination"),
+        when(col("delay") > 360, "Very Long Delays")
+          .when(col("delay") > 120 && col("delay") < 360, "Long Delays")
+          .when(col("delay") > 60 && col("delay") < 120, "Short Delays")
+          .when(col("delay") > 0 && col("delay") < 60, "Tolerable Delays")
+          .when(col("delay") === 0, "No Delays")
+          .otherwise("Early")
+          .alias("Flight_Delays")
+      )
+      .orderBy(col("origin"), col("delay").desc)
+      .show(10)
+
+
+
+
+  }
+
+  def ejercicio2(spark: SparkSession): Unit = {
+    /* ESTA TODO COMENTADO PARA NO ANDAR CREANDO TABLAS CONTINUAMENTE */
+
+    /* Esta es una forma de crear una tabla gestionada */
+
+    /*
+    spark.sql("CREATE DATABASE learn_spark_db")
+    spark.sql("USE learn_spark_db")
+    spark.sql("CREATE TABLE managed_us_delay_flights_tbl (date STRING, delay INT, distance INT, origin STRING, destination STRING)")
+    */
+
+    /* Esta es otra*/
+
+    /*
+    val schema = StructType(Array(
+      StructField("date", StringType, true),  // ✅ Ahora es STRING, no int
+      StructField("delay", IntegerType, true),
+      StructField("distance", IntegerType, true),
+      StructField("origin", StringType, true),
+      StructField("destination", StringType, true)
+    ))
+
+    val csvFile = "data/departuredelays.csv"
+    val flights_df = spark.read.format("csv")
+      .option("inferSchema", "false")
+      .option("header", "true")
+      .schema(schema)
+      .load(csvFile)
+
+    flights_df.write.saveAsTable("managed_us_delay_flights_tbl")
+    */
+
+
+    /* Para crear una tabla no gestionada usariamos: */
+    /*
+
+    spark.sql("""CREATE TABLE us_delay_flights_tbl(date STRING, delay INT,
+     distance INT, origin STRING, destination STRING)
+     USING csv OPTIONS (PATH
+     'data/departuredelays.csv')""")
+
+     /* O bien esta opción */
+
+     /*
+     (flights_df
+         .write
+         .option("path", "data/departuredelays.csv")
+         .saveAsTable("us_delay_flights_tbl"))
+     */
+
+     */
   }
 }
