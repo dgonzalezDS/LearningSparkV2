@@ -1,6 +1,7 @@
 import org.apache.spark.sql.{SparkSession, DataFrame}
 import org.apache.spark.sql.functions._
 import org.apache.spark.sql.types._
+import org.apache.spark.ml.source.image
 
 object chapter4 {
   def ejercicio1(spark: SparkSession): Unit = {
@@ -136,5 +137,15 @@ object chapter4 {
      */
 
      */
+  }
+
+  def ejercicio3(spark: SparkSession): Unit = {
+
+    val imageDir = "data/cctvVideos/train_images"
+    val imagesDF = spark.read.format("image").load(imageDir)
+    imagesDF.printSchema
+    imagesDF.select("image.height", "image.width", "image.nChannels", "image.mode",
+      "label").show(5, false)
+
   }
 }
