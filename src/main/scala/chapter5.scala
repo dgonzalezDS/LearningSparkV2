@@ -26,23 +26,5 @@ object chapter5 {
     df.show()
   }
 
-  def ejercicio2(spark: SparkSession): Unit = {
-
-    val jdbcDF = spark
-      .read
-      .format("jdbc")
-      .option("url", "jdbc:mysql://[DBSERVER]:3306/[DATABASE]")
-      .option("driver", "com.mysql.jdbc.Driver")
-      .option("dbtable", "[TABLENAME]")
-      .option("user", "[USERNAME]")
-      .option("password", "[PASSWORD]")
-      .load()
-
-
-
-
-
-
-  }
 
 }
