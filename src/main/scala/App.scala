@@ -63,6 +63,10 @@ object App {
           case "3" => chapter5.ejercicio3(spark)
           case "4" => chapter5.ejercicio4(spark)
         }
+      case "6" =>
+        ejercicio match {
+          case "1" => chapter5.ejercicio1(spark)
+        }
       case _ => println("Capítulo no reconocido.")
     }
 */
