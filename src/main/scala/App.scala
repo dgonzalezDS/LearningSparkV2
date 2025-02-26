@@ -22,6 +22,18 @@ object App {
 
     println(s"Ejecutando capítulo $capitulo, ejercicio $ejercicio")
 
+    val chapterNumber = args(0)
+    val exerciseNumber = args(1)
+
+    val clazz = Class.forName(s"chapter$chapterNumber$$")
+    val module = clazz.getField("MODULE$").get(null)
+    val methodName = s"ejercicio$exerciseNumber"
+    val exerciseMethod = clazz.getMethod(methodName, classOf[SparkSession])
+    exerciseMethod.invoke(module, spark)
+
+    // El CODIGO SIGUIENTE ERA LA FORMA ORIGINAL DE HACERLO, PERO POCO EFICIENTE, LA VERSION ACTUAL ES EL CODIGO DE ARRIBA
+
+    /*
     capitulo match {
       case "2" =>
         ejercicio match {
@@ -53,7 +65,7 @@ object App {
         }
       case _ => println("Capítulo no reconocido.")
     }
-
+*/
     // Cerrar SparkSession al finalizar
     spark.stop()
   }
