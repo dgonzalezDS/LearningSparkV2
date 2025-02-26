@@ -5,6 +5,7 @@ import org.apache.spark.ml.source.image
 
 object chapter8 {
   def ejercicio1(spark: SparkSession): Unit = {
+seguimos para bingo
 
   }
 }
