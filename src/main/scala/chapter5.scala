@@ -145,5 +145,99 @@ object chapter5 {
 
   }
 
+  def ejercicio4 (spark: SparkSession): Unit = {
+  /*
+
+   En este ejercicio cargaremos dos archivos de datos de vuelos de EE.UU, haremos una conversion de tipos en dos de las columnas y crearemos una tabla mas pequeña
+   con la que trabajar mas facilmente, ya que las tablas originales tienen 1.2M de registros
+
+   */
+
+    // Ruta de los archivos a importar
+
+    val delaysPath =
+      "data/departuredelays.csv"
+    val airportsPath =
+      "data/airport-codes-na.txt"
+
+    // Cargamos el data set de los aeropuertos y creamos una vista temporal
+
+    val airports = spark.read
+      .option("header","true")
+      .option("inferSchema", "true")
+      .option("delimiter", "\t")
+      .csv(airportsPath)
+    airports.createOrReplaceTempView("airports_na")
+
+    // Cargamos el data set de los retrasos (departuredelays) y creamos uan vista temporal
+
+    val delays = spark.read
+      .option("header","true")
+      .csv(delaysPath)
+      .withColumn("delay", expr("CAST(delay as INT) as delay"))
+      .withColumn("distance", expr("CAST(distance as INT) as distance"))
+    delays.createOrReplaceTempView("departureDelays")
+
+    // Creamos una tabla temporal mas pequeña llamada foo
+
+    val foo = delays.filter(
+      expr(
+        """origin == 'SEA' AND destination == 'SFO' AND
+            date like '01010%' AND delay > 0 """))
+    foo.createOrReplaceTempView("foo")
+
+    // Mostramos la tabla pequeña
+
+    spark.sql("SELECT * FROM foo").show()
+
+    // Con nuestra tabla lista, procedemos a hacer diferentes operaciones
+
+    // UNION
+    /*
+    El dataframe creado, bar, es la union de foo con delays,por tanto hemos añadido registros ya existentes adelays, y si filtramos los resultados,
+    veremos que hay registros duplicados
+     */
+    val bar = delays.union(foo)
+    bar.createOrReplaceTempView("bar")
+    bar.filter(expr("""origin == 'SEA' AND destination == 'SFO' AND date LIKE '01010%' AND delay > 0""")).show()
+
+    // JOIN
+
+    /*
+    Por defecto, al hacer un JOIN, Spark realiza una inner join, de entre las opciones posibles que son:
+    outer, full, full_outer, left, left_outer, right, right_outer, left_semi y left_anti
+     */
+
+    foo.join(
+      airports.as('air),
+      col("air.IATA") === col("origin")
+    ).select("City", "State", "date", "delay", "distance", "destination","origin").show()
+
+
+    // AÑADIR COLUMNAS
+
+    val foo2 = foo.withColumn(
+      "status",
+      expr("CASE WHEN delay <= 10 THEN 'On-time' ELSE 'Delayed' END")
+    )
+    foo2.show()
+
+    // ELIMINAR COLUMNAS
+
+    val foo3 = foo2.drop("delay")
+    foo3.show()
+
+    // RENOMBRAR COLUMNAS
+
+    val foo4 = foo3.withColumnRenamed("status", "flight_status")
+    foo4.show()
+
+
+
+
+
+
+  }
+
 
 }

@@ -49,6 +49,7 @@ object App {
           case "1" => chapter5.ejercicio1(spark)
           case "2" => chapter5.ejercicio2(spark)
           case "3" => chapter5.ejercicio3(spark)
+          case "4" => chapter5.ejercicio4(spark)
         }
       case _ => println("Capítulo no reconocido.")
     }
