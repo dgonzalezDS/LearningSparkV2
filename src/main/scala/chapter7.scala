@@ -5,6 +5,6 @@ import org.apache.spark.ml.source.image
 
 object chapter7 {
   def ejercicio1(spark: SparkSession): Unit = {
-
+igual ahora funcionan las ramitas de los cojones
   }
 }
