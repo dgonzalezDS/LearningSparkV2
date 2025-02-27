@@ -7,7 +7,6 @@ object chapter6 {
   def ejercicio1(spark: SparkSession): Unit = {
 
   }
-asdasdasda pam pam pam
 
 
   }

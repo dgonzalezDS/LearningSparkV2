@@ -3,6 +3,11 @@ import org.apache.spark.sql.functions._
 
 object chapter2 {
   def ejercicio1(spark: SparkSession): Unit = {
+    /*
+    Este ejercicio de los MnM consiste en cargar un archivo csv que contiene datos de colores y estados
+    Una vez cargado el csv y asignado a un data frame 'mnmDF', primero hacemos un conteo y una agrupacion por colores y estados
+    Para al final hacer un sumatorio total de colores para el estado de california
+     */
     val archivoCSV = "data/mnm_dataset.csv" // Se define la ruta del CSV aquí
     println(s"Cargando datos desde: $archivoCSV")
 

@@ -37,6 +37,9 @@ object chapter5 {
   }
 
   def ejercicio2 (spark: SparkSession): Unit = {
+    /*
+    Conexion con MS SQL Server
+     */
 
     val url = "jdbc:sqlserver://L2203030\\SQLEXPRESS:1433;databaseName=AdventureWorks2008R2;encrypt=false;trustServerCertificate=false;integratedSecurity=true;"
     val properties = new Properties()
@@ -56,11 +59,10 @@ object chapter5 {
   def ejercicio3 (spark: SparkSession): Unit = {
     import spark.implicits._
 
-
-
     /* En este ejercicio creamos  un data frame a partir de 2 arrays, con el objetivo de aplicarle funciones de mayor nivel, como transform (), filter (), exists(),
       reduce ()
      */
+
     // Create DataFrame with two rows of two arrays (tempc1, tempc2)
     val t1 = Array(35, 36, 32, 30, 40, 42, 38)
     val t2 = Array(31, 32, 34, 55, 56)

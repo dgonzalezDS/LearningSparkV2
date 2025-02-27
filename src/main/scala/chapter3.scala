@@ -3,7 +3,11 @@ import org.apache.spark.sql.functions._
 import org.apache.spark.sql.types._
 
 object chapter3 {
+
   def ejercicio1(spark: SparkSession): Unit = {
+    /*
+    En este ejercicio1 creamos un dataframe sencillo con nombre y edades, para probar con los metodos groupBy y avg
+   */
     val dataDF = spark.createDataFrame(Seq(("Brooke", 20), ("Brooke", 25),
       ("Denny", 31), ("Jules", 30), ("TD", 35))).toDF("name", "age")
     // Group the same names together, aggregate their ages, and compute an average
@@ -12,6 +16,10 @@ object chapter3 {
 
   }
   def ejercicio2(spark: SparkSession): Unit = {
+    /*
+    Este ejercicio se centra en la carga de un jason con schema que nosotros le definimos, en lugar de dejar spark inferirlo automaticamente
+
+     */
 
     val jsonFile= "data/blogs.json"
     val schema = StructType(Array(StructField("Id", IntegerType, false),
@@ -30,6 +38,9 @@ object chapter3 {
 
   }
   def ejercicio3 (spark:SparkSession): Unit = {
+    /*
+    Volvemos a cargar el mismo jason del ejercicio anterior, para efectuar algunas operaciones en sus columnas
+     */
     val jsonFile= "data/blogs.json"
     val schema = StructType(Array(StructField("Id", IntegerType, false),
       StructField("First", StringType, false),
@@ -65,6 +76,10 @@ object chapter3 {
   }
 
   def ejercicio4(spark:SparkSession): Unit = {
+    /*
+    Cargamos un csv con datos del departamento de bomberos, usando un esquema mucho mas amplio, creamos un data frame y
+    despues guardarmos el resultado localmente en formato parquet
+     */
     val fireSchema = StructType(Array(
       StructField("CallNumber", IntegerType, true),
       StructField("UnitID", StringType, true),
@@ -107,6 +122,9 @@ object chapter3 {
   }
 
   def ejercicio5(spark:SparkSession): Unit = {
+    /*
+    Volvemos a cargar los datos del departamento de bomberos, lo guardamos en un dataframe, y filtramos los registros
+     */
 
     val fireSchema = StructType(Array(
       StructField("CallNumber", IntegerType, true),
