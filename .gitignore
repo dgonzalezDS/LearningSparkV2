@@ -3,4 +3,8 @@ target/
 .idea/
 *.iml
 *.log
-
+spark-warehouse
+data/metadata
+data/state
+data/commits
+data/offsets
