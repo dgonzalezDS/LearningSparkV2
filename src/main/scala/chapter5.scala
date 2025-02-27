@@ -38,6 +38,7 @@ object chapter5 {
 
   def ejercicio2 (spark: SparkSession): Unit = {
 
+
     val url = "jdbc:sqlserver://L2203030\\SQLEXPRESS:1433;databaseName=AdventureWorks2008R2;encrypt=false;trustServerCertificate=false;integratedSecurity=true;"
     val properties = new Properties()
     properties.setProperty("driver", "com.microsoft.sqlserver.jdbc.SQLServerDriver")
@@ -233,9 +234,6 @@ object chapter5 {
     foo4.show()
 
 
-
-
-voy a crear ramas para todos los capitulos a ver si arreglo esta mierda
 
   }
 
