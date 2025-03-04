@@ -9,4 +9,5 @@ data/state
 data/offsets
 data/commits
 data/fireDF
+spark-warehouse
 
