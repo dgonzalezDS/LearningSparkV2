@@ -70,6 +70,7 @@ object App {
           case "2" => chapter5.ejercicio2(spark)
           case "3" => chapter5.ejercicio3(spark)
           case "4" => chapter5.ejercicio4(spark)
+          case "5" => chapter5.ejercicio5(spark)
         }
       case "6" =>
         ejercicio match {
