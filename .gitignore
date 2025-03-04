@@ -4,10 +4,9 @@ target/
 *.iml
 *.log
 spark-warehouse/
-metadata
+data/metadata
 data/state
 data/offsets
 data/commits
 data/fireDF
 spark-warehouse
-
