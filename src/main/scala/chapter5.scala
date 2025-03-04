@@ -4,6 +4,7 @@ import org.apache.spark.sql.functions._
 import org.apache.spark.sql.types._
 
 
+
 /*
 *   Este tema trata sobre la conexion de fuentes de datos externas, como bases de datos de Postgre o MS SQL
 *   Para ejecutar correctamente el capitulo, además de pasar por parámetros de ejecución el numero de capitulo y el ejercicio,
@@ -238,6 +239,59 @@ object chapter5 {
 
 
   }
+
+
+  /* EJERCICIO DE WINDOWING */
+
+  // Creamos un Dataframe sencillo a mano
+
+  def ejercicio5 (spark: SparkSession): Unit = {
+    import spark.implicits._
+
+    val df_1 = Seq(("800", "BMW",8000),("110", "Bugatti", 8000),("208", "Peugot", 5400),("Atlas", "Volkswagen", 5000), ("Mustang", "Ford", 5000), ("C500", "Mercedes", 5000),
+      ("Prius", "Toyota", 3200), ("Landcruiser", "Toyota", 3000), ("Accord", "Honda", 2000), ("C200", "Mercedes", 2000), ("Corolla","Toyota", 1800)
+    ).toDF("name","company","power")
+
+    df_1.show()
+    df_1.createOrReplaceTempView("df_1")
+
+    spark.sql(
+      """
+        SELECT name, company, power, Rank
+        FROM (
+            SELECT name, company, power,
+                   RANK() OVER (ORDER BY power DESC) AS Rank
+            FROM df_1
+        )
+      """
+    ).show()
+
+    spark.sql(
+      """
+        SELECT name, company, power, Rank
+        FROM (
+            SELECT name, company, power,
+                   DENSE_RANK() OVER (ORDER BY power DESC) AS Rank
+            FROM df_1
+        )
+      """
+    ).show()
+
+    spark.sql(
+      """
+        SELECT name, company, power, Rank
+        FROM (
+            SELECT name, company, power,
+                   ROW_NUMBER() OVER (ORDER BY power DESC) AS Rank
+            FROM df_1
+        )
+      """
+    ).show()
+
+  }
+
+
+
 
 
 }
