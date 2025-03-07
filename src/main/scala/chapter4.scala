@@ -5,6 +5,11 @@ import org.apache.spark.ml.source.image
 
 object chapter4 {
   def ejercicio1(spark: SparkSession): Unit = {
+    /*
+    Cargamos los datos del csv, inferimos el schema y lo guardamos en un dataframe
+    Hacemos consultas con spark.sql, formateamos la columa date a fecha, y repetimos las consultas pero usando
+    los métodos de los dataframes
+     */
 
     val schema = StructType(Array(
       StructField("date", StringType, true),  // ✅ Ahora es STRING, no int
@@ -88,6 +93,12 @@ object chapter4 {
 
   def ejercicio2(spark: SparkSession): Unit = {
     /* ESTA TODO COMENTADO PARA NO ANDAR CREANDO TABLAS CONTINUAMENTE */
+    /*
+    En este ejercicios creamos una base de datos, creamos una tabla gestionada especificando el tipado de cada columna
+    Con la tabla creada, cargamos los datos del csv de departuredelays
+    Tambien exploramos la opcion de crear tablas no gestionadas
+
+     */
 
     /* Esta es una forma de crear una tabla gestionada */
 
@@ -140,6 +151,9 @@ object chapter4 {
   }
 
   def ejercicio3(spark: SparkSession): Unit = {
+    /*
+    Cargamos archivos de imagen, imprimimos su schema y mostramos las 5 primeras filas
+     */
 
     val imageDir = "data/cctvVideos/train_images"
     val imagesDF = spark.read.format("image").load(imageDir)
