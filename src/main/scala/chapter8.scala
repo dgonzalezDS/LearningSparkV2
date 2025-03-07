@@ -122,19 +122,19 @@ object chapter8 {
       .outputMode("complete") // Como usamos groupBy, el modo debe ser "complete"
       .format("console")
       .trigger(Trigger.ProcessingTime("10 seconds"))
-      //.option("checkpointLocation", "file:///tmp/checkpoints")//
+      .option("checkpointLocation", "file:///tmp/checkpoints")//
       .start()
 
     queryConsole.awaitTermination()
 
     /*
     // Escribir en formato Delta
-    val outputPath = "file:///ruta/a/delta_table/"
+    val outputPath = "data"
 
     val queryDelta = transformedDF.writeStream
       .outputMode("complete")
       .format("delta")
-      .option("checkpointLocation", "file:///ruta/a/checkpoints/")
+      .option("checkpointLocation", "file:///tmp/checkpoints")
       .start(outputPath)
 
     queryConsole.awaitTermination()
