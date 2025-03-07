@@ -26,6 +26,8 @@ object App {
       .builder
       .appName("EjerciciosScala")
       .master("local[*]")
+      .config("spark.executor.memory", "4g")
+      .config("spark.driver.memory", "4g")
       .getOrCreate()
 
     println(s"Ejecutando capítulo $capitulo, ejercicio $ejercicio")
@@ -36,8 +38,8 @@ object App {
     val clazz = Class.forName(s"chapter$chapterNumber$$")
     val module = clazz.getField("MODULE$").get(null)
     val methodName = s"ejercicio$exerciseNumber"
-    val exerciseMethod = clazz.getMethod(methodName, classOf[SparkSession])
-    exerciseMethod.invoke(module, spark)
+    val exerciseMethod = clazz.getMethod(methodName) // , classOf[SparkSession]
+    exerciseMethod.invoke(module) // , spark
 
     // El CODIGO SIGUIENTE ERA LA FORMA ORIGINAL DE HACERLO, PERO POCO EFICIENTE, LA VERSION ACTUAL ES EL CODIGO DE ARRIBA
 
