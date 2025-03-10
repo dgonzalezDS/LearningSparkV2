@@ -6,7 +6,7 @@ import org.apache.spark.sql.SaveMode
 import scala.util.Random
 
 object chapter7 {
-  def ejercicio1(spark: SparkSession): Unit = {
+  def ejercicio1()(implicit spark: SparkSession): Unit = {
     /*
     En este ejercicio creamos unos dataframes grandes para experimentar con los join de spark, empaquetando (bucketing)
     y guardando en formato parquet

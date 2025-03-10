@@ -4,7 +4,7 @@ import org.apache.spark.sql.types._
 
 object chapter3 {
 
-  def ejercicio1(spark: SparkSession): Unit = {
+  def ejercicio1()(implicit spark: SparkSession): Unit = {
     /*
     En este ejercicio1 creamos un dataframe sencillo con nombre y edades, para probar con los metodos groupBy y avg
    */
@@ -15,7 +15,7 @@ object chapter3 {
     avgDF.show()
 
   }
-  def ejercicio2(spark: SparkSession): Unit = {
+  def ejercicio2()(implicit spark: SparkSession): Unit = {
     /*
     Este ejercicio se centra en la carga de un jason con schema que nosotros le definimos, en lugar de dejar spark inferirlo automaticamente
 
@@ -37,7 +37,7 @@ object chapter3 {
 
 
   }
-  def ejercicio3 (spark:SparkSession): Unit = {
+  def ejercicio3 ()(implicit spark: SparkSession): Unit = {
     /*
     Volvemos a cargar el mismo jason del ejercicio anterior, para efectuar algunas operaciones en sus columnas
      */
@@ -75,7 +75,7 @@ object chapter3 {
 
   }
 
-  def ejercicio4(spark:SparkSession): Unit = {
+  def ejercicio4()(implicit spark: SparkSession): Unit = {
     /*
     Cargamos un csv con datos del departamento de bomberos, usando un esquema mucho mas amplio, creamos un data frame y
     despues guardarmos el resultado localmente en formato parquet
@@ -121,7 +121,7 @@ object chapter3 {
     fireDF.write.format("parquet").save(parquetPath)
   }
 
-  def ejercicio5(spark:SparkSession): Unit = {
+  def ejercicio5()(implicit spark: SparkSession): Unit = {
     /*
     Volvemos a cargar los datos del departamento de bomberos, lo guardamos en un dataframe, y filtramos los registros
      */

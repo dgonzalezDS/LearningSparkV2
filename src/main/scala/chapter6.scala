@@ -15,7 +15,7 @@ object chapter6 {
   case class Usage(uid:Int, uname:String, usage: Int)
   case class UsageCost(uid: Int, uname:String, usage: Int, cost: Double)
 
-  def ejercicio1(spark: SparkSession): Unit = {
+  def ejercicio1()(implicit spark: SparkSession): Unit = {
     /*
     Leemos el archivo bloggers.json usando nuestra case class
     */
@@ -32,7 +32,7 @@ object chapter6 {
     bloggersDS.show(10)
   }
 
-  def ejercicio2(spark: SparkSession): Unit = {
+  def ejercicio2()(implicit spark: SparkSession): Unit = {
     /*
     Creamos un case class y generamos data random para almacenarla en el dataset
      */
