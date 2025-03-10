@@ -39,8 +39,8 @@ object App {
     val clazz = Class.forName(s"chapter$chapterNumber$$")
     val module = clazz.getField("MODULE$").get(null)
     val methodName = s"ejercicio$exerciseNumber"
-    val exerciseMethod = clazz.getMethod(methodName, classOf[SparkSession]) // , classOf[SparkSession]
-    exerciseMethod.invoke(module,spark) // Nota, para ejecutar el capitulo de spark streaming, hay que eliminar la variable de "spark"
+    val exerciseMethod = clazz.getMethod(methodName, classOf[SparkSession])
+    exerciseMethod.invoke(module,spark) "
     */
 
     (chapterNumber, exerciseNumber) match {

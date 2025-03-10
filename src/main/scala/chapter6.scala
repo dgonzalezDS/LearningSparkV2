@@ -4,8 +4,6 @@ import org.apache.spark.sql.functions._
 import org.apache.spark.sql.types._
 import scala.util.Random._
 
-
-
 object chapter6 {
   /*
  En este capitulo crearemos case class para un conjunto de datos, la crearemos fuera de los ejercicios, para poder
@@ -57,14 +55,6 @@ object chapter6 {
       val v = if (u.usage > 750) u.usage * 0.15 else u.usage * 0.50
       UsageCost(u.uid, u.uname, u.usage, v)
     }
-
     dsUsage.map(u => {computeUserCostUsage(u)}).show(5)
-
-
   }
-
-
-
-
-
 }

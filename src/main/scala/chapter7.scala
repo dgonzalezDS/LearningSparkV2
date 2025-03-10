@@ -44,7 +44,6 @@ object chapter7 {
 
     usersOrdersDF.show(false)
 
-
     // Save as managed tables by bucketing them in Parquet format
 
     usersDF.orderBy(asc("uid"))
@@ -73,7 +72,5 @@ object chapter7 {
     val joinUsersOrdersBucketDF = ordersBucketDF
       .join(usersBucketDF, $"users_id" === $"uid")
     joinUsersOrdersBucketDF.show(false)
-
-
   }
 }

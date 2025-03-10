@@ -2,9 +2,6 @@ import org.apache.spark.sql.{SparkSession, DataFrame}
 import java.util.Properties
 import org.apache.spark.sql.functions._
 import org.apache.spark.sql.types._
-
-
-
 /*
 *   Este tema trata sobre la conexion de fuentes de datos externas, como bases de datos de Postgre o MS SQL
 *   Para ejecutar correctamente el capitulo, además de pasar por parámetros de ejecución el numero de capitulo y el ejercicio,
@@ -42,7 +39,6 @@ object chapter5 {
     Conexion con MS SQL Server
      */
 
-
     val url = "jdbc:sqlserver://L2203030\\SQLEXPRESS:1433;databaseName=AdventureWorks2008R2;encrypt=false;trustServerCertificate=false;integratedSecurity=true;"
     val properties = new Properties()
     properties.setProperty("driver", "com.microsoft.sqlserver.jdbc.SQLServerDriver")
@@ -54,8 +50,6 @@ object chapter5 {
         .option ("driver", "com.microsoft.sqlserver.jdbc.SQLServerDriver")
         .load()
     df.show(10)
-
-
   }
 
   def ejercicio3 ()(implicit spark: SparkSession): Unit = {
@@ -72,8 +66,6 @@ object chapter5 {
     tC.createOrReplaceTempView("tC")
     // Show the DataFrame
     tC.show()
-
-
 
     /* Funcion transform () */
     println("\n===== USANDO SPARK.SQL =====\n")
@@ -98,13 +90,8 @@ object chapter5 {
     exists(celsius, t -> t = 38) as threshold
     FROM tC
     """).show()
-
-
-
     /* Funcion reduce () NOTA: Está funcion no está incluida en mi version de Spark */
-
     /*
-
     spark.sql("""
     SELECT celsius,
     reduce(
@@ -115,13 +102,11 @@ object chapter5 {
      ) as avgFahrenheit
      FROM tC
      """).show()
-
      */
 
     /* EXTRA: Ahora reescribimos el codigo anterior, para usar los metodos de dataframe en lugar de spark.sql  */
 
     println("\n===== USANDO METODOS DE DF =====\n")
-
 
     /* Función transform () */
     val dfTransform = tC.select(
@@ -143,10 +128,6 @@ object chapter5 {
       exists(col("celsius"), t => t === 38).as("threshold")
     )
     dfExists.show()
-
-
-
-
   }
 
   def ejercicio4 ()(implicit spark: SparkSession): Unit = {
@@ -235,15 +216,7 @@ object chapter5 {
 
     val foo4 = foo3.withColumnRenamed("status", "flight_status")
     foo4.show()
-
-
-
-
-
-
   }
-
-
   /* EJERCICIO DE WINDOWING */
 
   // Creamos un Dataframe sencillo a mano
@@ -290,11 +263,5 @@ object chapter5 {
         )
       """
     ).show()
-
   }
-
-
-
-
-
 }

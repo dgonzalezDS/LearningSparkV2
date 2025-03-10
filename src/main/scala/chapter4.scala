@@ -70,7 +70,6 @@ object chapter4 {
       .orderBy(col("delay").desc)
       .show(10)
 
-
     df.select(
         col("delay"),
         col("origin"),
@@ -85,20 +84,9 @@ object chapter4 {
       )
       .orderBy(col("origin"), col("delay").desc)
       .show(10)
-
-
-
-
   }
 
   def ejercicio2()(implicit spark: SparkSession): Unit = {
-    /* ESTA TODO COMENTADO PARA NO ANDAR CREANDO TABLAS CONTINUAMENTE */
-    /*
-    En este ejercicios creamos una base de datos, creamos una tabla gestionada especificando el tipado de cada columna
-    Con la tabla creada, cargamos los datos del csv de departuredelays
-    Tambien exploramos la opcion de crear tablas no gestionadas
-
-     */
 
     /* Esta es una forma de crear una tabla gestionada */
 
@@ -110,7 +98,6 @@ object chapter4 {
 
     /* Esta es otra*/
 
-    /*
     val schema = StructType(Array(
       StructField("date", StringType, true),  // ✅ Ahora es STRING, no int
       StructField("delay", IntegerType, true),
@@ -127,27 +114,20 @@ object chapter4 {
       .load(csvFile)
 
     flights_df.write.saveAsTable("managed_us_delay_flights_tbl")
-    */
-
 
     /* Para crear una tabla no gestionada usariamos: */
-    /*
 
     spark.sql("""CREATE TABLE us_delay_flights_tbl(date STRING, delay INT,
      distance INT, origin STRING, destination STRING)
      USING csv OPTIONS (PATH
      'data/departuredelays.csv')""")
 
-     /* O bien esta opción */
+     // O bien esta opción
 
-     /*
-     (flights_df
+     flights_df
          .write
          .option("path", "data/departuredelays.csv")
-         .saveAsTable("us_delay_flights_tbl"))
-     */
-
-     */
+         .saveAsTable("us_delay_flights_tbl")
   }
 
   def ejercicio3()(implicit spark: SparkSession): Unit = {
@@ -160,6 +140,5 @@ object chapter4 {
     imagesDF.printSchema
     imagesDF.select("image.height", "image.width", "image.nChannels", "image.mode",
       "label").show(5, false)
-
   }
 }
