@@ -14,7 +14,7 @@ import org.apache.spark.sql.types._
 *  */
 
 object chapter5 {
-  def ejercicio1(spark: SparkSession): Unit = {
+  def ejercicio1()(implicit spark: SparkSession): Unit = {
     /* Conexion con POSTGRESDB */
 
     // Parámetros de conexión
@@ -37,7 +37,7 @@ object chapter5 {
     df.show()
   }
 
-  def ejercicio2 (spark: SparkSession): Unit = {
+  def ejercicio2 ()(implicit spark: SparkSession): Unit = {
     /*
     Conexion con MS SQL Server
      */
@@ -58,7 +58,7 @@ object chapter5 {
 
   }
 
-  def ejercicio3 (spark: SparkSession): Unit = {
+  def ejercicio3 ()(implicit spark: SparkSession): Unit = {
     import spark.implicits._
 
     /* En este ejercicio creamos  un data frame a partir de 2 arrays, con el objetivo de aplicarle funciones de mayor nivel, como transform (), filter (), exists(),
@@ -149,7 +149,7 @@ object chapter5 {
 
   }
 
-  def ejercicio4 (spark: SparkSession): Unit = {
+  def ejercicio4 ()(implicit spark: SparkSession): Unit = {
   /*
 
    En este ejercicio cargaremos dos archivos de datos de vuelos de EE.UU, haremos una conversion de tipos en dos de las columnas y crearemos una tabla mas pequeña
@@ -248,7 +248,7 @@ object chapter5 {
 
   // Creamos un Dataframe sencillo a mano
 
-  def ejercicio5 (spark: SparkSession): Unit = {
+  def ejercicio5 ()(implicit spark: SparkSession): Unit = {
     import spark.implicits._
 
     val df_1 = Seq(("800", "BMW",8000),("110", "Bugatti", 8000),("208", "Peugot", 5400),("Atlas", "Volkswagen", 5000), ("Mustang", "Ford", 5000), ("C500", "Mercedes", 5000),

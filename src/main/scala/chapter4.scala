@@ -4,7 +4,7 @@ import org.apache.spark.sql.types._
 import org.apache.spark.ml.source.image
 
 object chapter4 {
-  def ejercicio1(spark: SparkSession): Unit = {
+  def ejercicio1()(implicit spark: SparkSession): Unit = {
     /*
     Cargamos los datos del csv, inferimos el schema y lo guardamos en un dataframe
     Hacemos consultas con spark.sql, formateamos la columa date a fecha, y repetimos las consultas pero usando
@@ -91,7 +91,7 @@ object chapter4 {
 
   }
 
-  def ejercicio2(spark: SparkSession): Unit = {
+  def ejercicio2()(implicit spark: SparkSession): Unit = {
     /* ESTA TODO COMENTADO PARA NO ANDAR CREANDO TABLAS CONTINUAMENTE */
     /*
     En este ejercicios creamos una base de datos, creamos una tabla gestionada especificando el tipado de cada columna
@@ -150,7 +150,7 @@ object chapter4 {
      */
   }
 
-  def ejercicio3(spark: SparkSession): Unit = {
+  def ejercicio3()(implicit spark: SparkSession): Unit = {
     /*
     Cargamos archivos de imagen, imprimimos su schema y mostramos las 5 primeras filas
      */

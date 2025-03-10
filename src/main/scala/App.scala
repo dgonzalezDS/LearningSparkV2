@@ -22,7 +22,7 @@ object App {
     val ejercicio = args(1)
 
     // Crear SparkSession una única vez para utilizarlo en cada capitulo/ejercicio
-    val spark: SparkSession = SparkSession
+    implicit val spark: SparkSession = SparkSession
       .builder
       .appName("EjerciciosScala")
       .master("local[*]")
@@ -35,60 +35,34 @@ object App {
     val chapterNumber = args(0)
     val exerciseNumber = args(1)
 
+    /* NOTA: En caso de querer usar reflexion y no match-case
     val clazz = Class.forName(s"chapter$chapterNumber$$")
     val module = clazz.getField("MODULE$").get(null)
     val methodName = s"ejercicio$exerciseNumber"
-    val exerciseMethod = clazz.getMethod(methodName) // , classOf[SparkSession]
-    exerciseMethod.invoke(module) // , spark
+    val exerciseMethod = clazz.getMethod(methodName, classOf[SparkSession]) // , classOf[SparkSession]
+    exerciseMethod.invoke(module,spark) // Nota, para ejecutar el capitulo de spark streaming, hay que eliminar la variable de "spark"
+    */
 
-    // El CODIGO SIGUIENTE ERA LA FORMA ORIGINAL DE HACERLO, PERO POCO EFICIENTE, LA VERSION ACTUAL ES EL CODIGO DE ARRIBA
+    (chapterNumber, exerciseNumber) match {
+      case ("2", "1") => chapter2.ejercicio1()
+      case ("3", "1") => chapter3.ejercicio1()
+      case ("3", "2") => chapter3.ejercicio2()
+      case ("3", "3") => chapter3.ejercicio3()
+      case ("3", "4") => chapter3.ejercicio4()
+      case ("3", "5") => chapter3.ejercicio5()
+      case ("4", "1") => chapter4.ejercicio1()
+      case ("4", "2") => chapter4.ejercicio2()
+      case ("5", "1") => chapter5.ejercicio1()
+      case ("5", "2") => chapter5.ejercicio2()
+      case ("5", "3") => chapter5.ejercicio3()
+      case ("5", "4") => chapter5.ejercicio4()
+      case ("5", "5") => chapter5.ejercicio5()
+      case ("6", "1") => chapter6.ejercicio1()
+      case ("6", "2") => chapter6.ejercicio2()
+      case ("7", "1") => chapter7.ejercicio1()
 
-    /*
-    capitulo match {
-      case "2" =>
-        ejercicio match {
-          case "1" => chapter2.ejercicio1(spark)
-          case _   => println("Ejercicio no encontrado en el capítulo 2.")
-        }
-
-      case "3" =>
-        ejercicio match {
-          case "1" => chapter3.ejercicio1(spark)
-          case "2" => chapter3.ejercicio2(spark)
-          case "3" => chapter3.ejercicio3(spark)
-          case "4" => chapter3.ejercicio4(spark)
-          case "5" => chapter3.ejercicio5(spark)
-          case _   => println("Ejercicio no encontrado en el capítulo 3.")
-        }
-      case "4" =>
-        ejercicio match {
-          case "1" => chapter4.ejercicio1(spark)
-          case "2" => chapter4.ejercicio2(spark)
-          case "3" => chapter4.ejercicio3(spark)
-        }
-      case "5" =>
-        ejercicio match {
-          case "1" => chapter5.ejercicio1(spark)
-          case "2" => chapter5.ejercicio2(spark)
-          case "3" => chapter5.ejercicio3(spark)
-          case "4" => chapter5.ejercicio4(spark)
-          case "5" => chapter5.ejercicio5(spark)
-        }
-      case "6" =>
-        ejercicio match {
-          case "1" => chapter5.ejercicio1(spark)
-        }
-      case "7" =>
-        ejercicio match {
-          case "1" => chapter7.ejercicio1(spark)
-        }
-      case "8" =>
-        ejercicio match {
-          case "1" => chapter8.ejercicio1(spark)
-        }
-      case _ => println("Capítulo no reconocido.")
+      case _ => println("Capítulo o ejercicio no encontrado")
     }
-*/
     // Cerrar SparkSession al finalizar
     spark.stop()
   }
